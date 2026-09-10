@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Pure Talent | بيور تالينت</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Serif:wght@500;600;700&family=Noto+Naskh+Arabic:wght@500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Tamil:wght@500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Noto+Serif+Sinhala:wght@500;600;700&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rust-deep:#3B1B10;
+    --rust-deep-2:#4A2416;
+    --rust:#7A3B26;
+    --rust-light:#C97B52;
+    --bg:#FBF9F6;
+    --panel:#FFFFFF;
+    --ink:#251710;
+    --muted:#9C8F85;
+    --muted-dark:rgba(255,255,255,.56);
+    --line:#E1D7CC;
+    --line-dark:rgba(255,255,255,.16);
+    --error:#C0392B;
+    --success:#5B8C6E;
+    --font-display:'Noto Serif','Noto Naskh Arabic','Noto Serif Devanagari','Noto Serif Tamil','Noto Serif Sinhala',serif;
+    --font-body:'Noto Sans','Noto Sans Arabic','Noto Sans Devanagari','Noto Sans Tamil','Noto Sans Sinhala',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;padding:0;}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  .shell{
+    display:flex;
+    min-height:100vh;
+    min-height:100dvh;
+  }
+
+  /* ---------- LEFT / BRAND RAIL ---------- */
+  .rail{
+    width:34%;
+    min-width:300px;
+    background:linear-gradient(175deg,var(--rust-deep) 0%,var(--rust-deep-2) 100%);
+    color:#fff;
+    padding:44px 40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    position:relative;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .brand img{
+    height:34px;
+    width:auto;
+    display:block;
+    filter:brightness(0) invert(1);
+    opacity:.96;
+  }
+  .rail-steps{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    margin-top:56px;
+  }
+  .rail-step{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    position:relative;
+    padding-bottom:34px;
+  }
+  .rail-step:last-child{padding-bottom:0;}
+  .rail-step .dot-col{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .rail-step .dot{
+    width:9px;height:9px;
+    border-radius:50%;
+    background:transparent;
+    border:1.5px solid var(--muted-dark);
+    flex-shrink:0;
+    margin-top:3px;
+    transition:background .35s ease, border-color .35s ease, transform .35s ease;
+  }
+  .rail-step .stem{
+    width:1px;
+    flex:1;
+    background:var(--line-dark);
+    min-height:22px;
+  }
+  .rail-step:last-child .stem{display:none;}
+  .rail-step .label{
+    font-size:14px;
+    line-height:1.4;
+    color:var(--muted-dark);
+    padding-top:0px;
+    transition:color .35s ease;
+  }
+  .rail-step.done .dot{background:var(--rust-light);border-color:var(--rust-light);}
+  .rail-step.done .stem{background:var(--rust-light);opacity:.5;}
+  .rail-step.active .dot{
+    background:#fff;border-color:#fff;
+    transform:scale(1.25);
+  }
+  .rail-step.active .label{color:#fff;font-weight:600;}
+  .rail-step.done .label{color:rgba(255,255,255,.85);}
+
+  .rail-footer{
+    font-size:12px;
+    color:var(--muted-dark);
+    letter-spacing:.02em;
+    line-height:1.6;
+  }
+  .rail-footer .divider{
+    width:36px;height:1px;
+    background:var(--line-dark);
+    margin-bottom:14px;
+  }
+
+  /* ---------- RIGHT / CONTENT ---------- */
+  .content{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 28px;
+    position:relative;
+  }
+  .stage{
+    width:100%;
+    max-width:460px;
+  }
+  .stage-inner{
+    animation:rise .5s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .eyebrow-line{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow-line .tick{width:20px;height:1.5px;background:var(--rust);}
+  .eyebrow-line span{
+    font-size:13px;color:var(--muted);
+  }
+
+  h1.step-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:32px;
+    line-height:1.22;
+    margin:0 0 14px 0;
+    color:var(--ink);
+  }
+  p.step-body{
+    font-size:16px;
+    line-height:1.65;
+    color:#4E4038;
+    margin:0 0 30px 0;
+    max-width:42ch;
+  }
+
+  label.field-label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  input[type=text], input[type=email], textarea, input[type=tel]{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:16px;
+    color:var(--ink);
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:14px 16px;
+    outline:none;
+    transition:border-color .2s ease;
+  }
+  input:focus, textarea:focus{
+    border-color:var(--rust);
+  }
+  input:focus-visible, textarea:focus-visible, button:focus-visible, .lang-btn:focus-visible{
+    outline:2px solid var(--rust-light);
+    outline-offset:2px;
+  }
+  textarea{
+    min-height:130px;
+    resize:vertical;
+    line-height:1.55;
+  }
+  .field-wrap{margin-bottom:8px;}
+  .hint{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:8px;
+  }
+  .err-msg{
+    font-size:13px;
+    color:var(--error);
+    margin-top:8px;
+    display:none;
+  }
+  .field-wrap.error input, .field-wrap.error textarea{border-color:var(--error);}
+  .field-wrap.error .err-msg{display:block;}
+
+  /* phone field */
+  .phone-row{
+    display:flex;
+    gap:0;
+    border:1px solid var(--line);
+    background:var(--panel);
+  }
+  .phone-row:focus-within{border-color:var(--rust);}
+  .phone-code{
+    display:flex;align-items:center;
+    padding:0 14px;
+    font-size:16px;
+    color:var(--ink);
+    background:#F2EDE7;
+    border-inline-end:1px solid var(--line);
+    white-space:nowrap;
+    font-weight:600;
+  }
+  .phone-row input{
+    border:none;
+    flex:1;
+    min-width:0;
+  }
+  .phone-row input:focus{border:none;}
+
+  /* buttons */
+  .actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:34px;
+    gap:14px;
+  }
+  button{
+    font-family:var(--font-body);
+    cursor:pointer;
+    border:none;
+  }
+  .btn-primary{
+    background:var(--rust);
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    padding:14px 30px;
+    transition:background .2s ease, transform .15s ease;
+  }
+  .btn-primary:hover:not(:disabled){background:var(--rust-deep-2);}
+  .btn-primary:active:not(:disabled){transform:scale(.98);}
+  .btn-primary:disabled{
+    background:#E4DCD3;
+    color:#B4A99D;
+    cursor:not-allowed;
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--muted);
+    font-size:15px;
+    padding:14px 8px;
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .btn-ghost:hover{color:var(--ink);}
+  .btn-ghost:disabled{visibility:hidden;}
+
+  /* language grid (step 0) */
+  .lang-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .lang-btn{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:20px 16px;
+    text-align:start;
+    font-family:var(--font-display);
+    font-size:19px;
+    font-weight:600;
+    color:var(--ink);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .lang-btn small{
+    display:block;
+    font-family:var(--font-body);
+    font-weight:400;
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:5px;
+  }
+  .lang-btn:hover{border-color:var(--rust); background:#FBF3EC;}
+
+  /* review */
+  .review-list{
+    border-top:1px solid var(--line);
+  }
+  .review-row{
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .review-row .k{
+    font-size:13px;
+    color:var(--muted);
+    flex-shrink:0;
+    padding-top:2px;
+    min-width:90px;
+  }
+  .review-row .v{
+    font-size:15px;
+    color:var(--ink);
+    text-align:end;
+    line-height:1.5;
+    word-break:break-word;
+  }
+
+  .top-lang-switch{
+    position:absolute;
+    top:20px;
+    inset-inline-end:20px;
+    font-size:13px;
+    color:var(--muted);
+    background:none;
+    border:1px solid var(--line);
+    padding:7px 14px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .top-lang-switch:hover{color:var(--ink);border-color:var(--rust);}
+
+  /* mobile rail collapses */
+  @media (max-width: 860px){
+    .shell{flex-direction:column;}
+    .rail{
+      width:100%;min-width:0;
+      padding:26px 24px;
+      flex-direction:row;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .rail-steps{display:none;}
+    .rail-footer{display:none;}
+    .mobile-dots{
+      display:flex;gap:7px;
+    }
+    .mobile-dots span{
+      width:6px;height:6px;border-radius:50%;
+      background:var(--line-dark);
+    }
+    .mobile-dots span.done, .mobile-dots span.active{background:#fff;}
+    .content{padding:34px 22px 50px;}
+  }
+  @media (min-width: 861px){
+    .mobile-dots{display:none;}
+  }
+  @media (max-width: 420px){
+    .lang-grid{grid-template-columns:1fr;}
+    h1.step-title{font-size:27px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <div>
+      <div class="brand">
+        <img src="c:\Users\lucif\Downloads\Untitled_design-removebg-preview.png" alt="Pure Talent">
+      </div>
+      <div class="rail-steps" id="railSteps"></div>
+    </div>
+    <div class="mobile-dots" id="mobileDots"></div>
+    <div class="rail-footer" id="railFooter">
+      <div class="divider"></div>
+      <span id="footerText"></span>
+    </div>
+  </aside>
+
+  <main class="content">
+    <button class="top-lang-switch" id="langSwitch" style="display:none;">🌐 <span id="langSwitchLabel"></span></button>
+    <div class="stage">
+      <div class="stage-inner" id="stage"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const LANGS = [
+  {code:'ar', native:'العربية', en:'Arabic', dir:'rtl'},
+  {code:'en', native:'English', en:'English', dir:'ltr'},
+  {code:'hi', native:'हिन्दी', en:'Hindi', dir:'ltr'},
+  {code:'ta', native:'தமிழ்', en:'Tamil', dir:'ltr'},
+  {code:'ne', native:'नेपाली', en:'Nepali', dir:'ltr'},
+  {code:'si', native:'සිංහල', en:'Sinhala', dir:'ltr'},
+];
+
+const STR = {
+  ar:{chooseLanguage:"اختر لغتك",chooseLanguageSub:"Choose your language to continue",welcomeTitle:"مرحباً بك في بيور تالينت",welcomeBody:"نحن هنا لحل مشاكلك، على مدار اليوم.",continueBtn:"متابعة",backBtn:"رجوع",nextBtn:"التالي",stepWelcome:"الترحيب",stepName:"الاسم",stepEmail:"البريد الإلكتروني",stepProblem:"المشكلة",stepPhone:"رقم الواتساب",stepReview:"المراجعة والإرسال",nameLabel:"الاسم الكامل (كما في الهوية)",namePlaceholder:"أدخل اسمك الكامل",nameError:"الرجاء إدخال اسمك للمتابعة",emailLabel:"البريد الإلكتروني",emailPlaceholder:"yourname@gmail.com",emailError:"الرجاء إدخال بريد جيميل صحيح (name@gmail.com)",problemLabel:"ما هي المشكلة، أو ماذا تحتاج؟",problemPlaceholder:"صف مشكلتك أو طلبك بالتفصيل...",problemError:"الرجاء وصف مشكلتك للمتابعة",phoneLabel:"رقم الواتساب (الإمارات)",phoneError:"أدخل رقم إماراتي صحيح مكوّن من 9 أرقام يبدأ بـ 5",reviewTitle:"راجع بياناتك",reviewSub:"تأكد من صحة كل شيء قبل الإرسال",reviewName:"الاسم",reviewEmail:"البريد الإلكتروني",reviewProblem:"رسالتك",reviewPhone:"الواتساب",sendBtn:"إرسال عبر واتساب",sendingMsg:"جارٍ فتح واتساب...",footerNote:"خدمات التوفير — بيور تالينت",langSelfName:"العربية",waMessageIntro:"طلب جديد من موقع بيور تالينت",waName:"الاسم",waEmail:"البريد الإلكتروني",waProblem:"المشكلة / الطلب",waLang:"اللغة"},
+  en:{chooseLanguage:"Choose your language",chooseLanguageSub:"اختر لغتك للمتابعة",welcomeTitle:"Welcome to Pure Talent",welcomeBody:"We're here to solve your problems, around the clock.",continueBtn:"Continue",backBtn:"Back",nextBtn:"Next",stepWelcome:"Welcome",stepName:"Name",stepEmail:"Email",stepProblem:"Your issue",stepPhone:"WhatsApp number",stepReview:"Review & send",nameLabel:"Full name (as on your ID)",namePlaceholder:"Enter your full name",nameError:"Please enter your name to continue",emailLabel:"Email address",emailPlaceholder:"yourname@gmail.com",emailError:"Please enter a valid Gmail address (name@gmail.com)",problemLabel:"What's the problem, or what do you need?",problemPlaceholder:"Describe your issue or request in detail...",problemError:"Please describe your issue to continue",phoneLabel:"WhatsApp number (UAE)",phoneError:"Enter a valid 9-digit UAE number starting with 5",reviewTitle:"Review your details",reviewSub:"Make sure everything is correct before sending",reviewName:"Name",reviewEmail:"Email",reviewProblem:"Your message",reviewPhone:"WhatsApp",sendBtn:"Send via WhatsApp",sendingMsg:"Opening WhatsApp...",footerNote:"Pure Talent Provision Service",langSelfName:"English",waMessageIntro:"New request from the Pure Talent website",waName:"Name",waEmail:"Email",waProblem:"Issue / request",waLang:"Language"},
+  hi:{chooseLanguage:"अपनी भाषा चुनें",chooseLanguageSub:"Choose your language",welcomeTitle:"प्योर टैलेंट में आपका स्वागत है",welcomeBody:"हम दिन-रात आपकी समस्याओं को हल करने के लिए यहाँ हैं।",continueBtn:"जारी रखें",backBtn:"वापस",nextBtn:"अगला",stepWelcome:"स्वागत",stepName:"नाम",stepEmail:"ईमेल",stepProblem:"समस्या",stepPhone:"व्हाट्सएप नंबर",stepReview:"समीक्षा और भेजें",nameLabel:"पूरा नाम (पहचान पत्र अनुसार)",namePlaceholder:"अपना पूरा नाम दर्ज करें",nameError:"जारी रखने के लिए अपना नाम दर्ज करें",emailLabel:"ईमेल पता",emailPlaceholder:"yourname@gmail.com",emailError:"कृपया एक मान्य जीमेल पता दर्ज करें (name@gmail.com)",problemLabel:"समस्या क्या है, या आपको क्या चाहिए?",problemPlaceholder:"अपनी समस्या या अनुरोध विस्तार से लिखें...",problemError:"जारी रखने के लिए अपनी समस्या लिखें",phoneLabel:"व्हाट्सएप नंबर (यूएई)",phoneError:"5 से शुरू होने वाला मान्य 9 अंकों का यूएई नंबर दर्ज करें",reviewTitle:"अपना विवरण जांचें",reviewSub:"भेजने से पहले सब कुछ सही है यह सुनिश्चित करें",reviewName:"नाम",reviewEmail:"ईमेल",reviewProblem:"आपका संदेश",reviewPhone:"व्हाट्सएप",sendBtn:"व्हाट्सएप से भेजें",sendingMsg:"व्हाट्सएप खुल रहा है...",footerNote:"प्योर टैलेंट प्रोविज़न सर्विस",langSelfName:"हिन्दी",waMessageIntro:"प्योर टैलेंट वेबसाइट से नया अनुरोध",waName:"नाम",waEmail:"ईमेल",waProblem:"समस्या / अनुरोध",waLang:"भाषा"},
+  ta:{chooseLanguage:"உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்",chooseLanguageSub:"Choose your language",welcomeTitle:"பியூர் டேலண்ட்டிற்கு வரவேற்கிறோம்",welcomeBody:"உங்கள் பிரச்சினைகளை தீர்க்க நாங்கள் எப்போதும் இங்கே இருக்கிறோம்.",continueBtn:"தொடரவும்",backBtn:"பின்செல்",nextBtn:"அடுத்து",stepWelcome:"வரவேற்பு",stepName:"பெயர்",stepEmail:"மின்னஞ்சல்",stepProblem:"பிரச்சினை",stepPhone:"வாட்ஸ்அப் எண்",stepReview:"மதிப்பாய்வு & அனுப்பு",nameLabel:"முழு பெயர் (அடையாள அட்டையில் உள்ளபடி)",namePlaceholder:"உங்கள் முழு பெயரை உள்ளிடவும்",nameError:"தொடர உங்கள் பெயரை உள்ளிடவும்",emailLabel:"மின்னஞ்சல் முகவரி",emailPlaceholder:"yourname@gmail.com",emailError:"சரியான ஜிமெயில் முகவரியை உள்ளிடவும் (name@gmail.com)",problemLabel:"பிரச்சினை என்ன, அல்லது உங்களுக்கு என்ன தேவை?",problemPlaceholder:"உங்கள் பிரச்சினையை விரிவாக விவரிக்கவும்...",problemError:"தொடர உங்கள் பிரச்சினையை விவரிக்கவும்",phoneLabel:"வாட்ஸ்அப் எண் (யுஏஇ)",phoneError:"5 என தொடங்கும் சரியான 9 இலக்க யுஏஇ எண்ணை உள்ளிடவும்",reviewTitle:"உங்கள் விவரங்களை சரிபார்க்கவும்",reviewSub:"அனுப்பும் முன் அனைத்தும் சரியா என சரிபார்க்கவும்",reviewName:"பெயர்",reviewEmail:"மின்னஞ்சல்",reviewProblem:"உங்கள் செய்தி",reviewPhone:"வாட்ஸ்அப்",sendBtn:"வாட்ஸ்அப் மூலம் அனுப்பவும்",sendingMsg:"வாட்ஸ்அப் திறக்கப்படுகிறது...",footerNote:"பியூர் டேலண்ட் ப்ரொவிஷன் சர்வீஸ்",langSelfName:"தமிழ்",waMessageIntro:"பியூர் டேலண்ட் இணையதளத்திலிருந்து புதிய கோரிக்கை",waName:"பெயர்",waEmail:"மின்னஞ்சல்",waProblem:"பிரச்சினை / கோரிக்கை",waLang:"மொழி"},
+  ne:{chooseLanguage:"आफ्नो भाषा छान्नुहोस्",chooseLanguageSub:"Choose your language",welcomeTitle:"प्योर ट्यालेन्टमा स्वागत छ",welcomeBody:"हामी तपाईंको समस्या दिनभरि समाधान गर्न यहाँ छौं।",continueBtn:"जारी राख्नुहोस्",backBtn:"पछाडि",nextBtn:"अर्को",stepWelcome:"स्वागत",stepName:"नाम",stepEmail:"इमेल",stepProblem:"समस्या",stepPhone:"व्हाट्सएप नम्बर",stepReview:"समीक्षा र पठाउनुहोस्",nameLabel:"पूरा नाम (परिचयपत्र अनुसार)",namePlaceholder:"आफ्नो पूरा नाम लेख्नुहोस्",nameError:"जारी राख्न आफ्नो नाम लेख्नुहोस्",emailLabel:"इमेल ठेगाना",emailPlaceholder:"yourname@gmail.com",emailError:"कृपया मान्य जीमेल ठेगाना लेख्नुहोस् (name@gmail.com)",problemLabel:"समस्या के हो, वा तपाईंलाई के चाहिन्छ?",problemPlaceholder:"आफ्नो समस्या वा अनुरोध विस्तारमा लेख्नुहोस्...",problemError:"जारी राख्न आफ्नो समस्या लेख्नुहोस्",phoneLabel:"व्हाट्सएप नम्बर (यूएई)",phoneError:"5 बाट सुरु हुने मान्य 9 अंकको यूएई नम्बर लेख्नुहोस्",reviewTitle:"आफ्ना विवरणहरू जाँच्नुहोस्",reviewSub:"पठाउनु अघि सबै कुरा सही छ भनी सुनिश्चित गर्नुहोस्",reviewName:"नाम",reviewEmail:"इमेल",reviewProblem:"तपाईंको सन्देश",reviewPhone:"व्हाट्सएप",sendBtn:"व्हाट्सएपबाट पठाउनुहोस्",sendingMsg:"व्हाट्सएप खुल्दैछ...",footerNote:"प्योर ट्यालेन्ट प्रोभिजन सर्भिस",langSelfName:"नेपाली",waMessageIntro:"प्योर ट्यालेन्ट वेबसाइटबाट नयाँ अनुरोध",waName:"नाम",waEmail:"इमेल",waProblem:"समस्या / अनुरोध",waLang:"भाषा"},
+  si:{chooseLanguage:"ඔබේ භාෂාව තෝරන්න",chooseLanguageSub:"Choose your language",welcomeTitle:"Pure Talent වෙත සාදරයෙන් පිළිගනිමු",welcomeBody:"අපි දිවා රාත්‍රී ඔබේ ගැටලු විසඳීමට මෙහි සිටිමු.",continueBtn:"ඉදිරියට",backBtn:"ආපසු",nextBtn:"ඊළඟට",stepWelcome:"පිළිගැනීම",stepName:"නම",stepEmail:"විද්‍යුත් තැපෑල",stepProblem:"ගැටලුව",stepPhone:"වට්ස්ඇප් අංකය",stepReview:"සමාලෝචනය සහ යැවීම",nameLabel:"සම්පූර්ණ නම (හැඳුනුම්පතේ ඇති පරිදි)",namePlaceholder:"ඔබේ සම්පූර්ණ නම ඇතුළත් කරන්න",nameError:"ඉදිරියට යාමට ඔබේ නම ඇතුළත් කරන්න",emailLabel:"විද්‍යුත් තැපැල් ලිපිනය",emailPlaceholder:"yourname@gmail.com",emailError:"කරුණාකර වලංගු Gmail ලිපිනයක් ඇතුළත් කරන්න (name@gmail.com)",problemLabel:"ගැටලුව කුමක්ද, හෝ ඔබට අවශ්‍ය කුමක්ද?",problemPlaceholder:"ඔබේ ගැටලුව හෝ ඉල්ලීම විස්තරාත්මකව ලියන්න...",problemError:"ඉදිරියට යාමට ඔබේ ගැටලුව විස්තර කරන්න",phoneLabel:"වට්ස්ඇප් අංකය (UAE)",phoneError:"5 කින් ආරම්භ වන වලංගු ඉලක්කම් 9ක UAE අංකයක් ඇතුළත් කරන්න",reviewTitle:"ඔබේ විස්තර පරීක්ෂා කරන්න",reviewSub:"යැවීමට පෙර සියල්ල නිවැරදිදැයි තහවුරු කරගන්න",reviewName:"නම",reviewEmail:"විද්‍යුත් තැපෑල",reviewProblem:"ඔබේ පණිවිඩය",reviewPhone:"වට්ස්ඇප්",sendBtn:"වට්ස්ඇප් හරහා යවන්න",sendingMsg:"වට්ස්ඇප් විවෘත වෙමින්...",footerNote:"Pure Talent Provision Service",langSelfName:"සිංහල",waMessageIntro:"Pure Talent වෙබ් අඩවියෙන් නව ඉල්ලීමක්",waName:"නම",waEmail:"විද්‍යුත් තැපෑල",waProblem:"ගැටලුව / ඉල්ලීම",waLang:"භාෂාව"}
+};
+
+/* Replace with Pure Talent's real UAE WhatsApp Business number (digits only, with country code, no + or spaces) */
+const PURE_TALENT_WHATSAPP_NUMBER = "97126660935";
+/* All submissions are also emailed here */
+const PURE_TALENT_EMAIL = "info@puretalent.ae";
+
+/* ================= STATE ================= */
+const STEP_IDS = ['lang','welcome','name','email','problem','phone','review'];
+let state = {
+  step: 0,
+  lang: null,
+  name: "",
+  email: "",
+  problem: "",
+  phone: "" // raw 9 digits
+};
+
+const stage = document.getElementById('stage');
+const railSteps = document.getElementById('railSteps');
+const mobileDots = document.getElementById('mobileDots');
+const footerText = document.getElementById('footerText');
+const langSwitch = document.getElementById('langSwitch');
+const langSwitchLabel = document.getElementById('langSwitchLabel');
+
+function t(){ return STR[state.lang || 'en']; }
+
+function applyDirection(){
+  const l = LANGS.find(x=>x.code===(state.lang||'ar'));
+  document.documentElement.lang = state.lang || 'ar';
+  document.documentElement.dir = l ? l.dir : 'rtl';
+}
+
+/* ================= RAIL ================= */
+const RAIL_STEP_KEYS = ['welcome','name','email','problem','phone','review'];
+function renderRail(){
+  if(!state.lang){ railSteps.innerHTML=''; mobileDots.innerHTML=''; footerText.textContent=''; langSwitch.style.display='none'; return; }
+  langSwitch.style.display='flex';
+  langSwitchLabel.textContent = t().langSelfName;
+  footerText.textContent = t().footerNote;
+
+  const currentIdx = RAIL_STEP_KEYS.indexOf(STEP_IDS[state.step]);
+  railSteps.innerHTML = RAIL_STEP_KEYS.map((key,i)=>{
+    const label = t()['step'+capitalize(key)];
+    let cls = '';
+    if(i < currentIdx) cls='done'; else if(i===currentIdx) cls='active';
+    return `<div class="rail-step ${cls}">
+      <div class="dot-col"><div class="dot"></div><div class="stem"></div></div>
+      <div class="label">${label}</div>
+    </div>`;
+  }).join('');
+
+  mobileDots.innerHTML = RAIL_STEP_KEYS.map((key,i)=>{
+    let cls='';
+    if(i < currentIdx) cls='done'; else if(i===currentIdx) cls='active';
+    return `<span class="${cls}"></span>`;
+  }).join('');
+}
+function capitalize(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+/* ================= VALIDATION ================= */
+function isValidGmail(v){
+  return /^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(v.trim());
+}
+function isValidUAEPhone(v){
+  return /^5[0-9]{8}$/.test(v);
+}
+function formatPhoneDisplay(v){
+  // v: raw digits up to 9
+  let p1=v.slice(0,2), p2=v.slice(2,5), p3=v.slice(5,9);
+  return [p1,p2,p3].filter(Boolean).join(' ');
+}
+
+/* ================= RENDER STEPS ================= */
+function renderStage(){
+  applyDirection();
+  renderRail();
+  const id = STEP_IDS[state.step];
+  let html = '';
+
+  if(id==='lang'){
+    html = `
+      <h1 class="step-title" style="font-size:28px;">${LANGS.map(()=>'').join('')}اختر لغتك · Choose your language</h1>
+      <p class="step-body">حدد اللغة التي تفضّل المتابعة بها. Select the language you'd like to continue in.</p>
+      <div class="lang-grid">
+        ${LANGS.map(l=>`<button class="lang-btn" data-lang="${l.code}">${l.native}<small>${l.en}</small></button>`).join('')}
+      </div>
+    `;
+  }
+
+  if(id==='welcome'){
+    html = `
+      <div class="eyebrow-line"><div class="tick"></div><span>Pure Talent</span></div>
+      <h1 class="step-title">${t().welcomeTitle}</h1>
+      <p class="step-body">${t().welcomeBody}</p>
+      <div class="actions" style="justify-content:flex-start;">
+        <button class="btn-primary" id="btnNext">${t().continueBtn}</button>
+      </div>
+    `;
+  }
+
+  if(id==='name'){
+    html = `
+      <div class="eyebrow-line"><div class="tick"></div><span>1 / 5</span></div>
+      <h1 class="step-title">${t().nameLabel}</h1>
+      <div class="field-wrap" id="wrapName">
+        <input type="text" id="inputName" placeholder="${t().namePlaceholder}" value="${escapeHtml(state.name)}" autocomplete="name">
+        <div class="err-msg">${t().nameError}</div>
+      </div>
+      ${navActions()}
+    `;
+  }
+
+  if(id==='email'){
+    html = `
+      <div class="eyebrow-line"><div class="tick"></div><span>2 / 5</span></div>
+      <h1 class="step-title">${t().emailLabel}</h1>
+      <div class="field-wrap" id="wrapEmail">
+        <input type="email" id="inputEmail" placeholder="${t().emailPlaceholder}" value="${escapeHtml(state.email)}" autocomplete="email" dir="ltr" style="text-align:${dirIsRtl()?'end':'start'};">
+        <div class="err-msg">${t().emailError}</div>
+      </div>
+      ${navActions()}
+    `;
+  }
+
+  if(id==='problem'){
+    html = `
+      <div class="eyebrow-line"><div class="tick"></div><span>3 / 5</span></div>
+      <h1 class="step-title">${t().problemLabel}</h1>
+      <div class="field-wrap" id="wrapProblem">
+        <textarea id="inputProblem" placeholder="${t().problemPlaceholder}">${escapeHtml(state.problem)}</textarea>
+        <div class="err-msg">${t().problemError}</div>
+      </div>
+      ${navActions()}
+    `;
+  }
+
+  if(id==='phone'){
+    html = `
+      <div class="eyebrow-line"><div class="tick"></div><span>4 / 5</span></div>
+      <h1 class="step-title">${t().phoneLabel}</h1>
+      <div class="field-wrap" id="wrapPhone">
+        <div class="phone-row">
+          <div class="phone-code">+971</div>
+          <input type="tel" id="inputPhone" inputmode="numeric" placeholder="5X XXX XXXX" value="${formatPhoneDisplay(state.phone)}" dir="ltr">
+        </div>
+        <div class="err-msg">${t().phoneError}</div>
+      </div>
+      ${navActions()}
+    `;
+  }
+
+  if(id==='review'){
+    html = `
+      <div class="eyebrow-line"><div class="tick"></div><span>5 / 5</span></div>
+      <h1 class="step-title">${t().reviewTitle}</h1>
+      <p class="step-body">${t().reviewSub}</p>
+      <div class="review-list">
+        <div class="review-row"><div class="k">${t().reviewName}</div><div class="v">${escapeHtml(state.name)}</div></div>
+        <div class="review-row"><div class="k">${t().reviewEmail}</div><div class="v" dir="ltr" style="text-align:${dirIsRtl()?'end':'start'};">${escapeHtml(state.email)}</div></div>
+        <div class="review-row"><div class="k">${t().reviewProblem}</div><div class="v">${escapeHtml(state.problem)}</div></div>
+        <div class="review-row"><div class="k">${t().reviewPhone}</div><div class="v" dir="ltr">+971 ${formatPhoneDisplay(state.phone)}</div></div>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" id="btnBack">${t().backBtn}</button>
+        <button class="btn-primary" id="btnSend">${t().sendBtn}</button>
+      </div>
+    `;
+  }
+
+  stage.innerHTML = `<div class="stage-inner">${html}</div>`;
+  bindStepEvents(id);
+}
+
+function navActions(){
+  return `
+    <div class="actions">
+      <button class="btn-ghost" id="btnBack">${t().backBtn}</button>
+      <button class="btn-primary" id="btnNext" disabled>${t().nextBtn}</button>
+    </div>
+  `;
+}
+function dirIsRtl(){
+  const l = LANGS.find(x=>x.code===state.lang);
+  return l && l.dir==='rtl';
+}
+function escapeHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ================= EVENTS PER STEP ================= */
+function bindStepEvents(id){
+  const btnBack = document.getElementById('btnBack');
+  if(btnBack) btnBack.addEventListener('click', goBack);
+
+  if(id==='lang'){
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        state.lang = b.dataset.lang;
+        state.step = 1;
+        renderStage();
+      });
+    });
+  }
+
+  if(id==='welcome'){
+    document.getElementById('btnNext').addEventListener('click', ()=>{ state.step++; renderStage(); });
+  }
+
+  if(id==='name'){
+    const input = document.getElementById('inputName');
+    const btnNext = document.getElementById('btnNext');
+    function check(){
+      const ok = input.value.trim().length >= 2;
+      btnNext.disabled = !ok;
+      return ok;
+    }
+    check();
+    input.addEventListener('input', ()=>{ state.name=input.value; check(); document.getElementById('wrapName').classList.remove('error'); });
+    input.focus();
+    btnNext.addEventListener('click', ()=>{
+      if(check()){ state.step++; renderStage(); }
+      else document.getElementById('wrapName').classList.add('error');
+    });
+  }
+
+  if(id==='email'){
+    const input = document.getElementById('inputEmail');
+    const btnNext = document.getElementById('btnNext');
+    function check(){
+      const ok = isValidGmail(input.value);
+      btnNext.disabled = !ok;
+      return ok;
+    }
+    check();
+    input.addEventListener('input', ()=>{ state.email=input.value; check(); document.getElementById('wrapEmail').classList.remove('error'); });
+    input.focus();
+    btnNext.addEventListener('click', ()=>{
+      if(check()){ state.step++; renderStage(); }
+      else document.getElementById('wrapEmail').classList.add('error');
+    });
+  }
+
+  if(id==='problem'){
+    const input = document.getElementById('inputProblem');
+    const btnNext = document.getElementById('btnNext');
+    function check(){
+      const ok = input.value.trim().length >= 5;
+      btnNext.disabled = !ok;
+      return ok;
+    }
+    check();
+    input.addEventListener('input', ()=>{ state.problem=input.value; check(); document.getElementById('wrapProblem').classList.remove('error'); });
+    input.focus();
+    btnNext.addEventListener('click', ()=>{
+      if(check()){ state.step++; renderStage(); }
+      else document.getElementById('wrapProblem').classList.add('error');
+    });
+  }
+
+  if(id==='phone'){
+    const input = document.getElementById('inputPhone');
+    const btnNext = document.getElementById('btnNext');
+    function check(){
+      const digits = input.value.replace(/\D/g,'').slice(0,9);
+      const ok = isValidUAEPhone(digits);
+      btnNext.disabled = !ok;
+      return {ok, digits};
+    }
+    check();
+    input.addEventListener('input', ()=>{
+      let digits = input.value.replace(/\D/g,'').slice(0,9);
+      state.phone = digits;
+      input.value = formatPhoneDisplay(digits);
+      // keep caret at end
+      input.setSelectionRange(input.value.length, input.value.length);
+      check();
+      document.getElementById('wrapPhone').classList.remove('error');
+    });
+    input.focus();
+    btnNext.addEventListener('click', ()=>{
+      const r = check();
+      if(r.ok){ state.step++; renderStage(); }
+      else document.getElementById('wrapPhone').classList.add('error');
+    });
+  }
+
+  if(id==='review'){
+    document.getElementById('btnSend').addEventListener('click', sendToWhatsApp);
+  }
+}
+
+function goBack(){
+  if(state.step===0) return;
+  if(state.step===1){ state.step=0; renderStage(); return; }
+  state.step--;
+  renderStage();
+}
+
+/* ================= SEND ================= */
+function sendToWhatsApp(){
+  const s = t();
+  const lines = [
+    s.waMessageIntro,
+    "",
+    `${s.waName}: ${state.name}`,
+    `${s.waEmail}: ${state.email}`,
+    `${s.waProblem}: ${state.problem}`,
+    `${s.waLang}: ${s.langSelfName}`
+  ];
+  const bodyPlain = lines.join('\n');
+  const waText = encodeURIComponent(bodyPlain);
+  const waUrl = `https://wa.me/${PURE_TALENT_WHATSAPP_NUMBER}?text=${waText}`;
+
+  const mailSubject = encodeURIComponent(`${s.waMessageIntro} — ${state.name}`);
+  const mailBody = encodeURIComponent(bodyPlain);
+  const mailUrl = `mailto:${PURE_TALENT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+
+  const btn = document.getElementById('btnSend');
+  btn.disabled = true;
+  btn.textContent = s.sendingMsg;
+
+  setTimeout(()=>{
+    window.open(waUrl, '_blank');
+    // give the WhatsApp tab/app a moment to open before handing off the current tab to the mail client
+    setTimeout(()=>{ window.location.href = mailUrl; }, 300);
+  }, 350);
+}
+
+/* language switch button on all steps after lang chosen */
+langSwitch.addEventListener('click', ()=>{
+  state.step = 0;
+  renderStage();
+});
+
+/* ================= INIT ================= */
+renderStage();
+</script>
+</body>
+</html>
