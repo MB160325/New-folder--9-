@@ -339,6 +339,70 @@
     word-break:break-word;
   }
 
+  /* file attach */
+  .files-block{
+    margin-top:22px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+  }
+  .files-block .field-label{margin-bottom:6px;}
+  .files-block .hint{margin-top:0;margin-bottom:14px;}
+  .file-input-hidden{
+    position:absolute;
+    width:1px;height:1px;
+    overflow:hidden;
+    opacity:0;
+    pointer-events:none;
+  }
+  .btn-attach{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--panel);
+    border:1px solid var(--rust);
+    color:var(--rust);
+    font-size:14px;
+    font-weight:600;
+    padding:11px 20px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .btn-attach:hover{background:var(--rust);color:#fff;}
+  .files-list{
+    margin-top:14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .files-list .file-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    font-size:13.5px;
+    color:var(--ink);
+    background:#F5F0EA;
+    padding:9px 12px;
+  }
+  .files-list .file-row .fname{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .files-list .file-row .fremove{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:12.5px;
+    text-decoration:underline;
+    flex-shrink:0;
+  }
+  .files-list .file-row .fremove:hover{color:var(--error);}
+  .files-empty{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:12px;
+  }
+
   .top-lang-switch{
     position:absolute;
     top:20px;
@@ -420,18 +484,16 @@ const LANGS = [
 ];
 
 const STR = {
-  ar:{chooseLanguage:"اختر لغتك",chooseLanguageSub:"Choose your language to continue",welcomeTitle:"مرحباً بك في بيور تالينت",welcomeBody:"نحن هنا لحل مشاكلك، على مدار اليوم.",continueBtn:"متابعة",backBtn:"رجوع",nextBtn:"التالي",stepWelcome:"الترحيب",stepName:"الاسم",stepEmail:"البريد الإلكتروني",stepProblem:"المشكلة",stepPhone:"رقم الواتساب",stepReview:"المراجعة والإرسال",nameLabel:"الاسم الكامل (كما في الهوية)",namePlaceholder:"أدخل اسمك الكامل",nameError:"الرجاء إدخال اسمك للمتابعة",emailLabel:"البريد الإلكتروني",emailPlaceholder:"yourname@gmail.com",emailError:"الرجاء إدخال بريد جيميل صحيح (name@gmail.com)",problemLabel:"ما هي المشكلة، أو ماذا تحتاج؟",problemPlaceholder:"صف مشكلتك أو طلبك بالتفصيل...",problemError:"الرجاء وصف مشكلتك للمتابعة",phoneLabel:"رقم الواتساب (الإمارات)",phoneError:"أدخل رقم إماراتي صحيح مكوّن من 9 أرقام يبدأ بـ 5",reviewTitle:"راجع بياناتك",reviewSub:"تأكد من صحة كل شيء قبل الإرسال",reviewName:"الاسم",reviewEmail:"البريد الإلكتروني",reviewProblem:"رسالتك",reviewPhone:"الواتساب",sendBtn:"إرسال عبر واتساب",sendingMsg:"جارٍ فتح واتساب...",footerNote:"خدمات التوفير — بيور تالينت",langSelfName:"العربية",waMessageIntro:"طلب جديد من موقع بيور تالينت",waName:"الاسم",waEmail:"البريد الإلكتروني",waProblem:"المشكلة / الطلب",waLang:"اللغة"},
-  en:{chooseLanguage:"Choose your language",chooseLanguageSub:"اختر لغتك للمتابعة",welcomeTitle:"Welcome to Pure Talent",welcomeBody:"We're here to solve your problems, around the clock.",continueBtn:"Continue",backBtn:"Back",nextBtn:"Next",stepWelcome:"Welcome",stepName:"Name",stepEmail:"Email",stepProblem:"Your issue",stepPhone:"WhatsApp number",stepReview:"Review & send",nameLabel:"Full name (as on your ID)",namePlaceholder:"Enter your full name",nameError:"Please enter your name to continue",emailLabel:"Email address",emailPlaceholder:"yourname@gmail.com",emailError:"Please enter a valid Gmail address (name@gmail.com)",problemLabel:"What's the problem, or what do you need?",problemPlaceholder:"Describe your issue or request in detail...",problemError:"Please describe your issue to continue",phoneLabel:"WhatsApp number (UAE)",phoneError:"Enter a valid 9-digit UAE number starting with 5",reviewTitle:"Review your details",reviewSub:"Make sure everything is correct before sending",reviewName:"Name",reviewEmail:"Email",reviewProblem:"Your message",reviewPhone:"WhatsApp",sendBtn:"Send via WhatsApp",sendingMsg:"Opening WhatsApp...",footerNote:"Pure Talent Provision Service",langSelfName:"English",waMessageIntro:"New request from the Pure Talent website",waName:"Name",waEmail:"Email",waProblem:"Issue / request",waLang:"Language"},
-  hi:{chooseLanguage:"अपनी भाषा चुनें",chooseLanguageSub:"Choose your language",welcomeTitle:"प्योर टैलेंट में आपका स्वागत है",welcomeBody:"हम दिन-रात आपकी समस्याओं को हल करने के लिए यहाँ हैं।",continueBtn:"जारी रखें",backBtn:"वापस",nextBtn:"अगला",stepWelcome:"स्वागत",stepName:"नाम",stepEmail:"ईमेल",stepProblem:"समस्या",stepPhone:"व्हाट्सएप नंबर",stepReview:"समीक्षा और भेजें",nameLabel:"पूरा नाम (पहचान पत्र अनुसार)",namePlaceholder:"अपना पूरा नाम दर्ज करें",nameError:"जारी रखने के लिए अपना नाम दर्ज करें",emailLabel:"ईमेल पता",emailPlaceholder:"yourname@gmail.com",emailError:"कृपया एक मान्य जीमेल पता दर्ज करें (name@gmail.com)",problemLabel:"समस्या क्या है, या आपको क्या चाहिए?",problemPlaceholder:"अपनी समस्या या अनुरोध विस्तार से लिखें...",problemError:"जारी रखने के लिए अपनी समस्या लिखें",phoneLabel:"व्हाट्सएप नंबर (यूएई)",phoneError:"5 से शुरू होने वाला मान्य 9 अंकों का यूएई नंबर दर्ज करें",reviewTitle:"अपना विवरण जांचें",reviewSub:"भेजने से पहले सब कुछ सही है यह सुनिश्चित करें",reviewName:"नाम",reviewEmail:"ईमेल",reviewProblem:"आपका संदेश",reviewPhone:"व्हाट्सएप",sendBtn:"व्हाट्सएप से भेजें",sendingMsg:"व्हाट्सएप खुल रहा है...",footerNote:"प्योर टैलेंट प्रोविज़न सर्विस",langSelfName:"हिन्दी",waMessageIntro:"प्योर टैलेंट वेबसाइट से नया अनुरोध",waName:"नाम",waEmail:"ईमेल",waProblem:"समस्या / अनुरोध",waLang:"भाषा"},
-  ta:{chooseLanguage:"உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்",chooseLanguageSub:"Choose your language",welcomeTitle:"பியூர் டேலண்ட்டிற்கு வரவேற்கிறோம்",welcomeBody:"உங்கள் பிரச்சினைகளை தீர்க்க நாங்கள் எப்போதும் இங்கே இருக்கிறோம்.",continueBtn:"தொடரவும்",backBtn:"பின்செல்",nextBtn:"அடுத்து",stepWelcome:"வரவேற்பு",stepName:"பெயர்",stepEmail:"மின்னஞ்சல்",stepProblem:"பிரச்சினை",stepPhone:"வாட்ஸ்அப் எண்",stepReview:"மதிப்பாய்வு & அனுப்பு",nameLabel:"முழு பெயர் (அடையாள அட்டையில் உள்ளபடி)",namePlaceholder:"உங்கள் முழு பெயரை உள்ளிடவும்",nameError:"தொடர உங்கள் பெயரை உள்ளிடவும்",emailLabel:"மின்னஞ்சல் முகவரி",emailPlaceholder:"yourname@gmail.com",emailError:"சரியான ஜிமெயில் முகவரியை உள்ளிடவும் (name@gmail.com)",problemLabel:"பிரச்சினை என்ன, அல்லது உங்களுக்கு என்ன தேவை?",problemPlaceholder:"உங்கள் பிரச்சினையை விரிவாக விவரிக்கவும்...",problemError:"தொடர உங்கள் பிரச்சினையை விவரிக்கவும்",phoneLabel:"வாட்ஸ்அப் எண் (யுஏஇ)",phoneError:"5 என தொடங்கும் சரியான 9 இலக்க யுஏஇ எண்ணை உள்ளிடவும்",reviewTitle:"உங்கள் விவரங்களை சரிபார்க்கவும்",reviewSub:"அனுப்பும் முன் அனைத்தும் சரியா என சரிபார்க்கவும்",reviewName:"பெயர்",reviewEmail:"மின்னஞ்சல்",reviewProblem:"உங்கள் செய்தி",reviewPhone:"வாட்ஸ்அப்",sendBtn:"வாட்ஸ்அப் மூலம் அனுப்பவும்",sendingMsg:"வாட்ஸ்அப் திறக்கப்படுகிறது...",footerNote:"பியூர் டேலண்ட் ப்ரொவிஷன் சர்வீஸ்",langSelfName:"தமிழ்",waMessageIntro:"பியூர் டேலண்ட் இணையதளத்திலிருந்து புதிய கோரிக்கை",waName:"பெயர்",waEmail:"மின்னஞ்சல்",waProblem:"பிரச்சினை / கோரிக்கை",waLang:"மொழி"},
-  ne:{chooseLanguage:"आफ्नो भाषा छान्नुहोस्",chooseLanguageSub:"Choose your language",welcomeTitle:"प्योर ट्यालेन्टमा स्वागत छ",welcomeBody:"हामी तपाईंको समस्या दिनभरि समाधान गर्न यहाँ छौं।",continueBtn:"जारी राख्नुहोस्",backBtn:"पछाडि",nextBtn:"अर्को",stepWelcome:"स्वागत",stepName:"नाम",stepEmail:"इमेल",stepProblem:"समस्या",stepPhone:"व्हाट्सएप नम्बर",stepReview:"समीक्षा र पठाउनुहोस्",nameLabel:"पूरा नाम (परिचयपत्र अनुसार)",namePlaceholder:"आफ्नो पूरा नाम लेख्नुहोस्",nameError:"जारी राख्न आफ्नो नाम लेख्नुहोस्",emailLabel:"इमेल ठेगाना",emailPlaceholder:"yourname@gmail.com",emailError:"कृपया मान्य जीमेल ठेगाना लेख्नुहोस् (name@gmail.com)",problemLabel:"समस्या के हो, वा तपाईंलाई के चाहिन्छ?",problemPlaceholder:"आफ्नो समस्या वा अनुरोध विस्तारमा लेख्नुहोस्...",problemError:"जारी राख्न आफ्नो समस्या लेख्नुहोस्",phoneLabel:"व्हाट्सएप नम्बर (यूएई)",phoneError:"5 बाट सुरु हुने मान्य 9 अंकको यूएई नम्बर लेख्नुहोस्",reviewTitle:"आफ्ना विवरणहरू जाँच्नुहोस्",reviewSub:"पठाउनु अघि सबै कुरा सही छ भनी सुनिश्चित गर्नुहोस्",reviewName:"नाम",reviewEmail:"इमेल",reviewProblem:"तपाईंको सन्देश",reviewPhone:"व्हाट्सएप",sendBtn:"व्हाट्सएपबाट पठाउनुहोस्",sendingMsg:"व्हाट्सएप खुल्दैछ...",footerNote:"प्योर ट्यालेन्ट प्रोभिजन सर्भिस",langSelfName:"नेपाली",waMessageIntro:"प्योर ट्यालेन्ट वेबसाइटबाट नयाँ अनुरोध",waName:"नाम",waEmail:"इमेल",waProblem:"समस्या / अनुरोध",waLang:"भाषा"},
-  si:{chooseLanguage:"ඔබේ භාෂාව තෝරන්න",chooseLanguageSub:"Choose your language",welcomeTitle:"Pure Talent වෙත සාදරයෙන් පිළිගනිමු",welcomeBody:"අපි දිවා රාත්‍රී ඔබේ ගැටලු විසඳීමට මෙහි සිටිමු.",continueBtn:"ඉදිරියට",backBtn:"ආපසු",nextBtn:"ඊළඟට",stepWelcome:"පිළිගැනීම",stepName:"නම",stepEmail:"විද්‍යුත් තැපෑල",stepProblem:"ගැටලුව",stepPhone:"වට්ස්ඇප් අංකය",stepReview:"සමාලෝචනය සහ යැවීම",nameLabel:"සම්පූර්ණ නම (හැඳුනුම්පතේ ඇති පරිදි)",namePlaceholder:"ඔබේ සම්පූර්ණ නම ඇතුළත් කරන්න",nameError:"ඉදිරියට යාමට ඔබේ නම ඇතුළත් කරන්න",emailLabel:"විද්‍යුත් තැපැල් ලිපිනය",emailPlaceholder:"yourname@gmail.com",emailError:"කරුණාකර වලංගු Gmail ලිපිනයක් ඇතුළත් කරන්න (name@gmail.com)",problemLabel:"ගැටලුව කුමක්ද, හෝ ඔබට අවශ්‍ය කුමක්ද?",problemPlaceholder:"ඔබේ ගැටලුව හෝ ඉල්ලීම විස්තරාත්මකව ලියන්න...",problemError:"ඉදිරියට යාමට ඔබේ ගැටලුව විස්තර කරන්න",phoneLabel:"වට්ස්ඇප් අංකය (UAE)",phoneError:"5 කින් ආරම්භ වන වලංගු ඉලක්කම් 9ක UAE අංකයක් ඇතුළත් කරන්න",reviewTitle:"ඔබේ විස්තර පරීක්ෂා කරන්න",reviewSub:"යැවීමට පෙර සියල්ල නිවැරදිදැයි තහවුරු කරගන්න",reviewName:"නම",reviewEmail:"විද්‍යුත් තැපෑල",reviewProblem:"ඔබේ පණිවිඩය",reviewPhone:"වට්ස්ඇප්",sendBtn:"වට්ස්ඇප් හරහා යවන්න",sendingMsg:"වට්ස්ඇප් විවෘත වෙමින්...",footerNote:"Pure Talent Provision Service",langSelfName:"සිංහල",waMessageIntro:"Pure Talent වෙබ් අඩවියෙන් නව ඉල්ලීමක්",waName:"නම",waEmail:"විද්‍යුත් තැපෑල",waProblem:"ගැටලුව / ඉල්ලීම",waLang:"භාෂාව"}
+  ar:{chooseLanguage:"اختر لغتك",chooseLanguageSub:"Choose your language to continue",welcomeTitle:"مرحباً بك في بيور تالينت",welcomeBody:"نحن هنا لحل مشاكلك، على مدار اليوم.",continueBtn:"متابعة",backBtn:"رجوع",nextBtn:"التالي",stepWelcome:"الترحيب",stepName:"الاسم",stepEmail:"البريد الإلكتروني",stepProblem:"المشكلة",stepPhone:"رقم الواتساب",stepReview:"المراجعة والإرسال",nameLabel:"الاسم الكامل (كما في الهوية)",namePlaceholder:"أدخل اسمك الكامل",nameError:"الرجاء إدخال اسمك للمتابعة",emailLabel:"البريد الإلكتروني",emailPlaceholder:"yourname@gmail.com",emailError:"الرجاء إدخال بريد جيميل صحيح (name@gmail.com)",problemLabel:"ما هي المشكلة، أو ماذا تحتاج؟",problemPlaceholder:"صف مشكلتك أو طلبك بالتفصيل...",problemError:"الرجاء وصف مشكلتك للمتابعة",phoneLabel:"رقم الواتساب (الإمارات)",phoneError:"أدخل رقم إماراتي صحيح مكوّن من 9 أرقام يبدأ بـ 5",reviewTitle:"راجع بياناتك",reviewSub:"تأكد من صحة كل شيء قبل الإرسال",reviewName:"الاسم",reviewEmail:"البريد الإلكتروني",reviewProblem:"رسالتك",reviewPhone:"الواتساب",sendBtn:"إرسال عبر واتساب",sendingMsg:"جارٍ فتح واتساب...",footerNote:"خدمات التوفير — بيور تالينت",langSelfName:"العربية",waMessageIntro:"طلب جديد من موقع بيور تالينت",waName:"الاسم",waEmail:"البريد الإلكتروني",waProblem:"المشكلة / الطلب",waLang:"اللغة",filesLabel:"صور أو مستندات (اختياري)",filesHint:"أرفق صور أو ملفات لإرسالها مع رسالتك عبر واتساب",filesButton:"اختر ملفات",filesNone:"لم يتم اختيار أي ملف",filesChosenSuffix:"ملف مختار",filesRemove:"إزالة",filesManualNote:"سيفتح واتساب برسالتك، وإذا لم يدعم جهازك الإرفاق التلقائي فأرفق الملفات يدوياً داخل المحادثة"},
+  en:{chooseLanguage:"Choose your language",chooseLanguageSub:"اختر لغتك للمتابعة",welcomeTitle:"Welcome to Pure Talent",welcomeBody:"We're here to solve your problems, around the clock.",continueBtn:"Continue",backBtn:"Back",nextBtn:"Next",stepWelcome:"Welcome",stepName:"Name",stepEmail:"Email",stepProblem:"Your issue",stepPhone:"WhatsApp number",stepReview:"Review & send",nameLabel:"Full name (as on your ID)",namePlaceholder:"Enter your full name",nameError:"Please enter your name to continue",emailLabel:"Email address",emailPlaceholder:"yourname@gmail.com",emailError:"Please enter a valid Gmail address (name@gmail.com)",problemLabel:"What's the problem, or what do you need?",problemPlaceholder:"Describe your issue or request in detail...",problemError:"Please describe your issue to continue",phoneLabel:"WhatsApp number (UAE)",phoneError:"Enter a valid 9-digit UAE number starting with 5",reviewTitle:"Review your details",reviewSub:"Make sure everything is correct before sending",reviewName:"Name",reviewEmail:"Email",reviewProblem:"Your message",reviewPhone:"WhatsApp",sendBtn:"Send via WhatsApp",sendingMsg:"Opening WhatsApp...",footerNote:"Pure Talent Provision Service",langSelfName:"English",waMessageIntro:"New request from the Pure Talent website",waName:"Name",waEmail:"Email",waProblem:"Issue / request",waLang:"Language",filesLabel:"Photos or documents (optional)",filesHint:"Attach photos or files to send along with your message on WhatsApp",filesButton:"Choose files",filesNone:"No file chosen",filesChosenSuffix:"file(s) selected",filesRemove:"Remove",filesManualNote:"WhatsApp will open with your message. If your device doesn't support auto-attaching, please attach the files manually inside the chat"},
+  hi:{chooseLanguage:"अपनी भाषा चुनें",chooseLanguageSub:"Choose your language",welcomeTitle:"प्योर टैलेंट में आपका स्वागत है",welcomeBody:"हम दिन-रात आपकी समस्याओं को हल करने के लिए यहाँ हैं।",continueBtn:"जारी रखें",backBtn:"वापस",nextBtn:"अगला",stepWelcome:"स्वागत",stepName:"नाम",stepEmail:"ईमेल",stepProblem:"समस्या",stepPhone:"व्हाट्सएप नंबर",stepReview:"समीक्षा और भेजें",nameLabel:"पूरा नाम (पहचान पत्र अनुसार)",namePlaceholder:"अपना पूरा नाम दर्ज करें",nameError:"जारी रखने के लिए अपना नाम दर्ज करें",emailLabel:"ईमेल पता",emailPlaceholder:"yourname@gmail.com",emailError:"कृपया एक मान्य जीमेल पता दर्ज करें (name@gmail.com)",problemLabel:"समस्या क्या है, या आपको क्या चाहिए?",problemPlaceholder:"अपनी समस्या या अनुरोध विस्तार से लिखें...",problemError:"जारी रखने के लिए अपनी समस्या लिखें",phoneLabel:"व्हाट्सएप नंबर (यूएई)",phoneError:"5 से शुरू होने वाला मान्य 9 अंकों का यूएई नंबर दर्ज करें",reviewTitle:"अपना विवरण जांचें",reviewSub:"भेजने से पहले सब कुछ सही है यह सुनिश्चित करें",reviewName:"नाम",reviewEmail:"ईमेल",reviewProblem:"आपका संदेश",reviewPhone:"व्हाट्सएप",sendBtn:"व्हाट्सएप से भेजें",sendingMsg:"व्हाट्सएप खुल रहा है...",footerNote:"प्योर टैलेंट प्रोविज़न सर्विस",langSelfName:"हिन्दी",waMessageIntro:"प्योर टैलेंट वेबसाइट से नया अनुरोध",waName:"नाम",waEmail:"ईमेल",waProblem:"समस्या / अनुरोध",waLang:"भाषा",filesLabel:"तस्वीरें या दस्तावेज़ (वैकल्पिक)",filesHint:"अपने संदेश के साथ व्हाट्सएप पर भेजने के लिए तस्वीरें या फ़ाइलें जोड़ें",filesButton:"फ़ाइलें चुनें",filesNone:"कोई फ़ाइल नहीं चुनी गई",filesChosenSuffix:"फ़ाइलें चुनी गईं",filesRemove:"हटाएं",filesManualNote:"व्हाट्सएप आपके संदेश के साथ खुलेगा। यदि आपका डिवाइस स्वतः जोड़ना समर्थित नहीं करता, तो कृपया फ़ाइलें चैट में स्वयं जोड़ें"},
+  ta:{chooseLanguage:"உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்",chooseLanguageSub:"Choose your language",welcomeTitle:"பியூர் டேலண்ட்டிற்கு வரவேற்கிறோம்",welcomeBody:"உங்கள் பிரச்சினைகளை தீர்க்க நாங்கள் எப்போதும் இங்கே இருக்கிறோம்.",continueBtn:"தொடரவும்",backBtn:"பின்செல்",nextBtn:"அடுத்து",stepWelcome:"வரவேற்பு",stepName:"பெயர்",stepEmail:"மின்னஞ்சல்",stepProblem:"பிரச்சினை",stepPhone:"வாட்ஸ்அப் எண்",stepReview:"மதிப்பாய்வு & அனுப்பு",nameLabel:"முழு பெயர் (அடையாள அட்டையில் உள்ளபடி)",namePlaceholder:"உங்கள் முழு பெயரை உள்ளிடவும்",nameError:"தொடர உங்கள் பெயரை உள்ளிடவும்",emailLabel:"மின்னஞ்சல் முகவரி",emailPlaceholder:"yourname@gmail.com",emailError:"சரியான ஜிமெயில் முகவரியை உள்ளிடவும் (name@gmail.com)",problemLabel:"பிரச்சினை என்ன, அல்லது உங்களுக்கு என்ன தேவை?",problemPlaceholder:"உங்கள் பிரச்சினையை விரிவாக விவரிக்கவும்...",problemError:"தொடர உங்கள் பிரச்சினையை விவரிக்கவும்",phoneLabel:"வாட்ஸ்அப் எண் (யுஏஇ)",phoneError:"5 என தொடங்கும் சரியான 9 இலக்க யுஏஇ எண்ணை உள்ளிடவும்",reviewTitle:"உங்கள் விவரங்களை சரிபார்க்கவும்",reviewSub:"அனுப்பும் முன் அனைத்தும் சரியா என சரிபார்க்கவும்",reviewName:"பெயர்",reviewEmail:"மின்னஞ்சல்",reviewProblem:"உங்கள் செய்தி",reviewPhone:"வாட்ஸ்அப்",sendBtn:"வாட்ஸ்அப் மூலம் அனுப்பவும்",sendingMsg:"வாட்ஸ்அப் திறக்கப்படுகிறது...",footerNote:"பியூர் டேலண்ட் ப்ரொவிஷன் சர்வீஸ்",langSelfName:"தமிழ்",waMessageIntro:"பியூர் டேலண்ட் இணையதளத்திலிருந்து புதிய கோரிக்கை",waName:"பெயர்",waEmail:"மின்னஞ்சல்",waProblem:"பிரச்சினை / கோரிக்கை",waLang:"மொழி",filesLabel:"புகைப்படங்கள் அல்லது ஆவணங்கள் (விருப்பத்தேர்வு)",filesHint:"உங்கள் செய்தியுடன் வாட்ஸ்அப்பில் அனுப்ப புகைப்படங்கள் அல்லது கோப்புகளை இணைக்கவும்",filesButton:"கோப்புகளைத் தேர்ந்தெடுக்கவும்",filesNone:"எந்த கோப்பும் தேர்ந்தெடுக்கப்படவில்லை",filesChosenSuffix:"கோப்புகள் தேர்ந்தெடுக்கப்பட்டன",filesRemove:"அகற்று",filesManualNote:"வாட்ஸ்அப் உங்கள் செய்தியுடன் திறக்கும். உங்கள் சாதனம் தானியங்கி இணைப்பை ஆதரிக்கவில்லை எனில், கோப்புகளை உரையாடலில் நேரடியாக இணைக்கவும்"},
+  ne:{chooseLanguage:"आफ्नो भाषा छान्नुहोस्",chooseLanguageSub:"Choose your language",welcomeTitle:"प्योर ट्यालेन्टमा स्वागत छ",welcomeBody:"हामी तपाईंको समस्या दिनभरि समाधान गर्न यहाँ छौं।",continueBtn:"जारी राख्नुहोस्",backBtn:"पछाडि",nextBtn:"अर्को",stepWelcome:"स्वागत",stepName:"नाम",stepEmail:"इमेल",stepProblem:"समस्या",stepPhone:"व्हाट्सएप नम्बर",stepReview:"समीक्षा र पठाउनुहोस्",nameLabel:"पूरा नाम (परिचयपत्र अनुसार)",namePlaceholder:"आफ्नो पूरा नाम लेख्नुहोस्",nameError:"जारी राख्न आफ्नो नाम लेख्नुहोस्",emailLabel:"इमेल ठेगाना",emailPlaceholder:"yourname@gmail.com",emailError:"कृपया मान्य जीमेल ठेगाना लेख्नुहोस् (name@gmail.com)",problemLabel:"समस्या के हो, वा तपाईंलाई के चाहिन्छ?",problemPlaceholder:"आफ्नो समस्या वा अनुरोध विस्तारमा लेख्नुहोस्...",problemError:"जारी राख्न आफ्नो समस्या लेख्नुहोस्",phoneLabel:"व्हाट्सएप नम्बर (यूएई)",phoneError:"5 बाट सुरु हुने मान्य 9 अंकको यूएई नम्बर लेख्नुहोस्",reviewTitle:"आफ्ना विवरणहरू जाँच्नुहोस्",reviewSub:"पठाउनु अघि सबै कुरा सही छ भनी सुनिश्चित गर्नुहोस्",reviewName:"नाम",reviewEmail:"इमेल",reviewProblem:"तपाईंको सन्देश",reviewPhone:"व्हाट्सएप",sendBtn:"व्हाट्सएपबाट पठाउनुहोस्",sendingMsg:"व्हाट्सएप खुल्दैछ...",footerNote:"प्योर ट्यालेन्ट प्रोभिजन सर्भिस",langSelfName:"नेपाली",waMessageIntro:"प्योर ट्यालेन्ट वेबसाइटबाट नयाँ अनुरोध",waName:"नाम",waEmail:"इमेल",waProblem:"समस्या / अनुरोध",waLang:"भाषा",filesLabel:"फोटो वा कागजातहरू (वैकल्पिक)",filesHint:"आफ्नो सन्देशसँगै व्हाट्सएपमा पठाउन फोटो वा फाइलहरू संलग्न गर्नुहोस्",filesButton:"फाइलहरू छान्नुहोस्",filesNone:"कुनै फाइल छानिएको छैन",filesChosenSuffix:"फाइलहरू छानिए",filesRemove:"हटाउनुहोस्",filesManualNote:"व्हाट्सएप तपाईंको सन्देशसहित खुल्नेछ। यदि तपाईंको यन्त्रले स्वतः संलग्न गर्न सहयोग गर्दैन भने, कृपया फाइलहरू च्याटमा आफैं संलग्न गर्नुहोस्"},
+  si:{chooseLanguage:"ඔබේ භාෂාව තෝරන්න",chooseLanguageSub:"Choose your language",welcomeTitle:"Pure Talent වෙත සාදරයෙන් පිළිගනිමු",welcomeBody:"අපි දිවා රාත්‍රී ඔබේ ගැටලු විසඳීමට මෙහි සිටිමු.",continueBtn:"ඉදිරියට",backBtn:"ආපසු",nextBtn:"ඊළඟට",stepWelcome:"පිළිගැනීම",stepName:"නම",stepEmail:"විද්‍යුත් තැපෑල",stepProblem:"ගැටලුව",stepPhone:"වට්ස්ඇප් අංකය",stepReview:"සමාලෝචනය සහ යැවීම",nameLabel:"සම්පූර්ණ නම (හැඳුනුම්පතේ ඇති පරිදි)",namePlaceholder:"ඔබේ සම්පූර්ණ නම ඇතුළත් කරන්න",nameError:"ඉදිරියට යාමට ඔබේ නම ඇතුළත් කරන්න",emailLabel:"විද්‍යුත් තැපැල් ලිපිනය",emailPlaceholder:"yourname@gmail.com",emailError:"කරුණාකර වලංගු Gmail ලිපිනයක් ඇතුළත් කරන්න (name@gmail.com)",problemLabel:"ගැටලුව කුමක්ද, හෝ ඔබට අවශ්‍ය කුමක්ද?",problemPlaceholder:"ඔබේ ගැටලුව හෝ ඉල්ලීම විස්තරාත්මකව ලියන්න...",problemError:"ඉදිරියට යාමට ඔබේ ගැටලුව විස්තර කරන්න",phoneLabel:"වට්ස්ඇප් අංකය (UAE)",phoneError:"5 කින් ආරම්භ වන වලංගු ඉලක්කම් 9ක UAE අංකයක් ඇතුළත් කරන්න",reviewTitle:"ඔබේ විස්තර පරීක්ෂා කරන්න",reviewSub:"යැවීමට පෙර සියල්ල නිවැරදිදැයි තහවුරු කරගන්න",reviewName:"නම",reviewEmail:"විද්‍යුත් තැපෑල",reviewProblem:"ඔබේ පණිවිඩය",reviewPhone:"වට්ස්ඇප්",sendBtn:"වට්ස්ඇප් හරහා යවන්න",sendingMsg:"වට්ස්ඇප් විවෘත වෙමින්...",footerNote:"Pure Talent Provision Service",langSelfName:"සිංහල",waMessageIntro:"Pure Talent වෙබ් අඩවියෙන් නව ඉල්ලීමක්",waName:"නම",waEmail:"විද්‍යුත් තැපෑල",waProblem:"ගැටලුව / ඉල්ලීම",waLang:"භාෂාව",filesLabel:"ඡායාරූප හෝ ලේඛන (විකල්පයකි)",filesHint:"ඔබේ පණිවිඩය සමඟ වට්ස්ඇප් හරහා යැවීමට ඡායාරූප හෝ ගොනු අමුණන්න",filesButton:"ගොනු තෝරන්න",filesNone:"කිසිදු ගොනුවක් තෝරාගෙන නැත",filesChosenSuffix:"ගොනු තෝරාගෙන ඇත",filesRemove:"ඉවත් කරන්න",filesManualNote:"ඔබේ පණිවිඩය සමඟ වට්ස්ඇප් විවෘත වනු ඇත. ඔබේ උපකරණය ස්වයංක්‍රීයව අමුණන්නට සහාය නොදක්වන්නේ නම්, කරුණාකර ගොනු කතාබහට ම අතින් අමුණන්න"}
 };
 
-/* Replace with Pure Talent's real UAE WhatsApp Business number (digits only, with country code, no + or spaces) */
+/* Pure Talent's WhatsApp number (digits only, with country code, no + or spaces) */
 const PURE_TALENT_WHATSAPP_NUMBER = "97126660935";
-/* All submissions are also emailed here */
-const PURE_TALENT_EMAIL = "info@puretalent.ae";
 
 /* ================= STATE ================= */
 const STEP_IDS = ['lang','welcome','name','email','problem','phone','review'];
@@ -443,6 +505,7 @@ let state = {
   problem: "",
   phone: "" // raw 9 digits
 };
+let selectedFiles = [];
 
 const stage = document.getElementById('stage');
 const railSteps = document.getElementById('railSteps');
@@ -589,6 +652,17 @@ function renderStage(){
         <div class="review-row"><div class="k">${t().reviewProblem}</div><div class="v">${escapeHtml(state.problem)}</div></div>
         <div class="review-row"><div class="k">${t().reviewPhone}</div><div class="v" dir="ltr">+971 ${formatPhoneDisplay(state.phone)}</div></div>
       </div>
+
+      <div class="files-block">
+        <label class="field-label">${t().filesLabel}</label>
+        <div class="hint">${t().filesHint}</div>
+        <label class="btn-attach" for="inputFiles">📎 ${t().filesButton}</label>
+        <input class="file-input-hidden" type="file" id="inputFiles" multiple accept="image/*,.pdf,.doc,.docx">
+        <div id="filesEmpty" class="files-empty" style="${selectedFiles.length? 'display:none;':''}">${t().filesNone}</div>
+        <div class="files-list" id="filesList"></div>
+        <div class="hint" style="margin-top:12px;">${t().filesManualNote}</div>
+      </div>
+
       <div class="actions">
         <button class="btn-ghost" id="btnBack">${t().backBtn}</button>
         <button class="btn-primary" id="btnSend">${t().sendBtn}</button>
@@ -714,8 +788,33 @@ function bindStepEvents(id){
   }
 
   if(id==='review'){
+    renderFilesList();
+    document.getElementById('inputFiles').addEventListener('change', (e)=>{
+      selectedFiles = selectedFiles.concat(Array.from(e.target.files));
+      e.target.value = '';
+      renderFilesList();
+    });
     document.getElementById('btnSend').addEventListener('click', sendToWhatsApp);
   }
+}
+
+function renderFilesList(){
+  const listEl = document.getElementById('filesList');
+  const emptyEl = document.getElementById('filesEmpty');
+  if(!listEl) return;
+  emptyEl.style.display = selectedFiles.length ? 'none' : 'block';
+  listEl.innerHTML = selectedFiles.map((f,i)=>`
+    <div class="file-row">
+      <span class="fname">${escapeHtml(f.name)}</span>
+      <button type="button" class="fremove" data-idx="${i}">${t().filesRemove}</button>
+    </div>
+  `).join('');
+  listEl.querySelectorAll('.fremove').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      selectedFiles.splice(Number(btn.dataset.idx), 1);
+      renderFilesList();
+    });
+  });
 }
 
 function goBack(){
@@ -726,7 +825,7 @@ function goBack(){
 }
 
 /* ================= SEND ================= */
-function sendToWhatsApp(){
+async function sendToWhatsApp(){
   const s = t();
   const lines = [
     s.waMessageIntro,
@@ -740,19 +839,26 @@ function sendToWhatsApp(){
   const waText = encodeURIComponent(bodyPlain);
   const waUrl = `https://wa.me/${PURE_TALENT_WHATSAPP_NUMBER}?text=${waText}`;
 
-  const mailSubject = encodeURIComponent(`${s.waMessageIntro} — ${state.name}`);
-  const mailBody = encodeURIComponent(bodyPlain);
-  const mailUrl = `mailto:${PURE_TALENT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
-
   const btn = document.getElementById('btnSend');
   btn.disabled = true;
   btn.textContent = s.sendingMsg;
 
-  setTimeout(()=>{
-    window.open(waUrl, '_blank');
-    // give the WhatsApp tab/app a moment to open before handing off the current tab to the mail client
-    setTimeout(()=>{ window.location.href = mailUrl; }, 300);
-  }, 350);
+  // If files were attached and the device supports native sharing with files,
+  // let the user pick WhatsApp from the share sheet with text + files together.
+  if(selectedFiles.length > 0 && navigator.canShare && navigator.canShare({files: selectedFiles})){
+    try{
+      await navigator.share({
+        files: selectedFiles,
+        title: s.waMessageIntro,
+        text: bodyPlain
+      });
+      return;
+    }catch(err){
+      // user cancelled the share sheet or it failed — fall back to the plain WhatsApp link below
+    }
+  }
+
+  setTimeout(()=>{ window.open(waUrl, '_blank'); }, 300);
 }
 
 /* language switch button on all steps after lang chosen */
